@@ -29,8 +29,8 @@
 extern "C" uint32_t _FS_start;
 extern "C" uint32_t _FS_end;
 
-ESP8266HTTPUpdate::ESP8266HTTPUpdate(void)
-        : _httpClientTimeout(8000), _followRedirects(false), _ledPin(-1)
+ESP8266HTTPUpdate::ESP8266HTTPUpdate(const String& thingId)
+        : _httpClientTimeout(8000), _followRedirects(false), _ledPin(-1), _thingId(thingId)
 {
 }
 
@@ -271,7 +271,10 @@ HTTPUpdateResult ESP8266HTTPUpdate::handleUpdate(HTTPClient& http, const String&
     http.addHeader(F("x-ESP8266-sketch-md5"), String(ESP.getSketchMD5()));
     http.addHeader(F("x-ESP8266-chip-size"), String(ESP.getFlashChipRealSize()));
     http.addHeader(F("x-ESP8266-sdk-version"), ESP.getSdkVersion());
-
+    http.addHeader(F("Accept"), "application/json");
+    http.addHeader(F("X-Thing-ID"), _thingId);
+    http.addHeader(F("Authorization"), _oAuthBearerToken);
+    
     if(spiffs) {
         http.addHeader(F("x-ESP8266-mode"), F("spiffs"));
     } else {

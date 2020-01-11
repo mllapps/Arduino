@@ -73,7 +73,7 @@ using HTTPUpdateProgressCB = std::function<void(int, int)>;
 class ESP8266HTTPUpdate
 {
 public:
-    ESP8266HTTPUpdate(void);
+    ESP8266HTTPUpdate(const String& thingId);
     ESP8266HTTPUpdate(int httpClientTimeout);
     ~ESP8266HTTPUpdate(void);
 
@@ -91,6 +91,11 @@ public:
     {
         _ledPin = ledPin;
         _ledOn = ledOn;
+    }
+    
+    void setOAuthBearer(const String& token)
+    {
+        _oAuthBearerToken = token;
     }
 
 #if HTTPUPDATE_1_2_COMPATIBLE
@@ -164,6 +169,9 @@ private:
 
     int _ledPin;
     uint8_t _ledOn;
+    
+    const String _thingId;
+    String _oAuthBearerToken;
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_HTTPUPDATE)
