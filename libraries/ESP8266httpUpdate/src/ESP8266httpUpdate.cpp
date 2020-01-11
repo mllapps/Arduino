@@ -29,8 +29,8 @@
 extern "C" uint32_t _FS_start;
 extern "C" uint32_t _FS_end;
 
-ESP8266HTTPUpdate::ESP8266HTTPUpdate(const String& thingId)
-        : _httpClientTimeout(8000), _followRedirects(false), _ledPin(-1), _thingId(thingId)
+ESP8266HTTPUpdate::ESP8266HTTPUpdate(void)
+        : _httpClientTimeout(8000), _followRedirects(false), _ledPin(-1)
 {
 }
 
