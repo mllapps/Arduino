@@ -272,7 +272,8 @@ HTTPUpdateResult ESP8266HTTPUpdate::handleUpdate(HTTPClient& http, const String&
     http.addHeader(F("x-ESP8266-chip-size"), String(ESP.getFlashChipRealSize()));
     http.addHeader(F("x-ESP8266-sdk-version"), ESP.getSdkVersion());
     http.addHeader(F("Accept"), "application/json");
-    http.addHeader(F("X-Thing-ID"), _thingId);
+    http.addHeader(F("Content-Type"), "application/json");
+    http.addHeader(F("X-Connect-Thing"), _thingId);
     http.addHeader(F("Authorization"), _oAuthBearerToken);
     
     if(spiffs) {

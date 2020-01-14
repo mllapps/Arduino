@@ -100,7 +100,8 @@ public:
     
     void setOAuthBearer(const String& token)
     {
-        _oAuthBearerToken = token;
+        _oAuthBearerToken = "Bearer ";
+        _oAuthBearerToken.concat(token);
     }
 
 #if HTTPUPDATE_1_2_COMPATIBLE
@@ -175,7 +176,7 @@ private:
     int _ledPin;
     uint8_t _ledOn;
     
-    const String _thingId;
+    String _thingId;
     String _oAuthBearerToken;
 };
 
